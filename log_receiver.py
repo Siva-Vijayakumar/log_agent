@@ -155,26 +155,29 @@ def dashboard():
                 let error = 0, warning = 0, info = 0;
 
                 logs.forEach(log => {
-                    let row = document.createElement("tr");
+    let row = document.createElement("tr");
 
-                    let levelClass = "info";
-                    if (log.message.includes("ERROR")) {
-                        error++;
-                        levelClass = "error";
-                    } else if (log.message.includes("WARNING")) {
-                        warning++;
-                        levelClass = "warning";
-                    } else {
-                        info++;
-                    }
+    let message = log.message || "No message";
 
-                    row.innerHTML = `
-                        <td>${log.received_at}</td>
-                        <td>${log.host}</td>
-                        <td class="${levelClass}">${log.message}</td>
-                    `;
-                    table.appendChild(row);
-                });
+    let levelClass = "info";
+
+    if (message.includes("ERROR")) {
+        error++;
+        levelClass = "error";
+    } else if (message.includes("WARNING")) {
+        warning++;
+        levelClass = "warning";
+    } else {
+        info++;
+    }
+
+    row.innerHTML = `
+        <td>${log.received_at || "-"}</td>
+        <td>${log.host || "-"}</td>
+        <td class="${levelClass}">${message}</td>
+    `;
+    table.appendChild(row);
+});
 
                 document.getElementById("totalLogs").innerText = logs.length;
                 document.getElementById("errorCount").innerText = error;
