@@ -143,7 +143,7 @@ def dashboard():
             let chart;
 
             async function fetchLogs() {
-                const response = await fetch('/api/logs');
+                const response = await fetch('/logs');
                 const logs = await response.json();
 
                 const table = document.getElementById("logTable");
