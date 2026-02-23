@@ -22,6 +22,9 @@ def receive_logs():
 
     return jsonify({"status": "success"}), 200
 
+@app.route('/api/logs', methods=['GET'])
+def get_logs():
+    return jsonify(logs[::-1])
 
 # Dashboard endpoint
 @app.route('/')
@@ -143,7 +146,7 @@ def dashboard():
             let chart;
 
             async function fetchLogs() {
-                const response = await fetch('/logs');
+                const response = await fetch('/api/logs');
                 const logs = await response.json();
 
                 const table = document.getElementById("logTable");
